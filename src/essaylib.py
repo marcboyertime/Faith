@@ -166,11 +166,13 @@ def _context(items: list[str], index: int, radius: int = 2) -> str:
     return " | ".join(items[lo:hi])
 
 
-def verify_rendered_html(essay: Essay, rendered_html: str) -> dict:
+def verify_rendered_html(essay: Essay, rendered_html: str, excluded_ids: set[str] | None = None) -> dict:
     parser = _VisibleHTMLParser()
     parser.feed(rendered_html)
     actual_ids = [item[0] for item in parser.blocks]
-    expected_ids = [block.id for block in essay.blocks]
+    excluded_ids = excluded_ids or set()
+    expected_blocks = [block for block in essay.blocks if block.id not in excluded_ids]
+    expected_ids = [block.id for block in expected_blocks]
     if actual_ids != expected_ids:
         first = next((i for i, (a, b) in enumerate(zip(actual_ids, expected_ids)) if a != b), min(len(actual_ids), len(expected_ids)))
         raise IntegrityError(
@@ -178,14 +180,14 @@ def verify_rendered_html(essay: Essay, rendered_html: str) -> dict:
             f"expected {expected_ids[first:first + 2]}, actual {actual_ids[first:first + 2]}"
         )
     actual_text = [visible_inline(text) for _, text in parser.blocks]
-    expected_text = [block.visible for block in essay.blocks]
+    expected_text = [block.visible for block in expected_blocks]
     for index, (expected, actual) in enumerate(zip(expected_text, actual_text)):
         if expected != actual:
             expected_tokens = token_sequence(expected)
             actual_tokens = token_sequence(actual)
             token_at = next((i for i, (a, b) in enumerate(zip(expected_tokens, actual_tokens)) if a != b), min(len(expected_tokens), len(actual_tokens)))
             raise IntegrityError(
-                f"{essay.essay_id} block {essay.blocks[index].id}: visible-text mismatch; "
+                f"{essay.essay_id} block {expected_blocks[index].id}: visible-text mismatch; "
                 f"expected={expected!r}; actual={actual!r}; "
                 f"nearby={_context(expected_text, index)}; first token mismatch={token_at}"
             )
@@ -198,12 +200,12 @@ def verify_rendered_html(essay: Essay, rendered_html: str) -> dict:
             f"expected={expected_tokens[token_at:token_at + 8]}; actual={actual_tokens[token_at:token_at + 8]}"
         )
     return {
-        "word_count": essay.word_count,
+        "word_count": len(re.findall(r"[\w]+(?:['’][\w]+)?", " ".join(expected_text), flags=re.UNICODE)),
         "token_count": len(expected_tokens),
-        "paragraph_count": sum(block.kind == "paragraph" for block in essay.blocks),
-        "heading_count": sum(block.kind == "heading" for block in essay.blocks),
-        "quotation_count": sum(block.kind == "blockquote" for block in essay.blocks),
-        "note_count": sum(block.kind == "footnote" for block in essay.blocks),
+        "paragraph_count": sum(block.kind == "paragraph" for block in expected_blocks),
+        "heading_count": sum(block.kind == "heading" for block in expected_blocks),
+        "quotation_count": sum(block.kind == "blockquote" for block in expected_blocks),
+        "note_count": sum(block.kind == "footnote" for block in expected_blocks),
         "structural": "PASS",
         "visible": "PASS",
         "tokens": "PASS",

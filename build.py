@@ -139,6 +139,10 @@ def render_block(block, essay_id: str, glossary: list[dict], seen_terms: set[str
             classes.append("objection")
         elif leading.startswith("**") and any(leading.startswith(prefix) for prefix in ("**Weld", "**Attack", "**Assault", "**Objection", "**Failure", "**Fact", "**Contestant")):
             classes.append("argument-card")
+    elif essay_id == "resurrection" and block.kind == "paragraph" and block.text.strip().startswith("**"):
+        leading = block.visible.lower()
+        pressure = ("for the skeptical", "against, or for caution", "why disbelief", "its costs", "fair verdict", "grave damage", "material weakening")
+        classes.extend(("resurrection-card", "pressure-card" if leading.startswith(pressure) else "answer-card"))
     class_attr = f' class="{" ".join(classes)}"' if classes else ""
     return f"<p{class_attr} {attrs}>{render_inline(block.text, glossary, seen_terms)}</p>"
 
@@ -163,19 +167,62 @@ def volume_tabs(current: str | None, asset_prefix: str) -> str:
     return "".join(links)
 
 
+def reader_excluded_ids(essay: Essay) -> set[str]:
+    """Keep source-management material out of the public reading edition."""
+    if essay.essay_id != "resurrection":
+        return set()
+    excluded: set[str] = set()
+    in_appendices = False
+    in_ledger = False
+    ledger_headings = {"SECURE NOW", "STILL CONTESTED", "NOT YET PROVEN", "SOURCE CHECKS"}
+    editorial_markers = (
+        "research scaffold",
+        "drafting charter",
+        "verification pass",
+        "source-verification",
+        "source marker",
+        "master list",
+    )
+    for block in essay.blocks:
+        if block.kind == "heading" and block.level == 1:
+            in_ledger = False
+        if block.kind == "heading" and block.visible.startswith("Appendix A"):
+            in_appendices = True
+        if in_appendices:
+            excluded.add(block.id)
+            continue
+        if block.kind == "heading" and block.visible in ledger_headings:
+            in_ledger = True
+        if in_ledger:
+            excluded.add(block.id)
+            continue
+        if block.kind == "blockquote" and block.visible.startswith(("A note on this text.", "PRE-VERDICT AUDIT")):
+            excluded.add(block.id)
+        elif block.kind == "paragraph" and block.visible.startswith("Grade consistency:"):
+            excluded.add(block.id)
+        elif block.kind == "list_item" and block.visible.startswith(("Appendix A", "Appendix B")):
+            excluded.add(block.id)
+        elif any(marker in block.visible.lower() for marker in editorial_markers):
+            excluded.add(block.id)
+    return excluded
+
+
 def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], asset_prefix: str) -> str:
     import html
+    import re
 
     title, deck = title_and_deck(essay)
     glossary = manifest.get("glossary", [])
     placement = visual_map(manifest)
-    target_ids = {block.id for block in essay.blocks}
+    excluded_ids = reader_excluded_ids(essay)
+    reader_blocks = [block for block in essay.blocks if block.id not in excluded_ids]
+    target_ids = {block.id for block in reader_blocks}
     unresolved = sorted(set(placement) - target_ids)
     if unresolved:
         raise IntegrityError(f"{essay.essay_id}: unresolved visual placement IDs: {', '.join(unresolved)}")
 
     chapters = []
-    for block in essay.blocks:
+    for block in reader_blocks:
         if chapter_heading(block, essay.essay_id):
             chapters.append((block.id, block.visible))
     chapter_links = "".join(
@@ -194,7 +241,7 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
     chapter_open = False
     seen_chapter = False
     hero_ids = {title.id if title else None, deck.id if deck else None}
-    for block in essay.blocks:
+    for block in reader_blocks:
         if block.id in hero_ids:
             continue
         if chapter_heading(block, essay.essay_id):
@@ -215,7 +262,8 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
     title_text = title.visible if title else essay.essay_id.title()
     deck_text = deck.visible if deck else ""
     chapter_count = len(chapters)
-    minutes = max(1, round(essay.word_count / 190))
+    reader_word_count = sum(len(re.findall(r"[\w]+(?:['’][\w]+)?", block.visible, flags=re.UNICODE)) for block in reader_blocks)
+    minutes = max(1, round(reader_word_count / 190))
     theme = manifest.get("theme", essay.essay_id)
     hero = manifest.get("hero", {})
     if hero.get("asset"):
@@ -265,20 +313,20 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
       <div class="kicker" data-supporting="true">{html.escape(manifest.get("label", "AN INTERACTIVE READING"))}</div>
       {hero_title}
       <div class="hero-dek">{hero_deck}</div>
-      <div class="meta" data-supporting="true">{chapter_count} CHAPTERS &nbsp;·&nbsp; {essay.word_count:,} WORDS &nbsp;·&nbsp; {minutes} MIN READ &nbsp;·&nbsp; EVERY WORD PRESERVED</div>
+      <div class="meta" data-supporting="true">{chapter_count} CHAPTERS &nbsp;·&nbsp; {reader_word_count:,} WORDS &nbsp;·&nbsp; {minutes} MIN READ</div>
     </div>
     <a class="begin" href="#{html.escape(chapters[0][0] if chapters else "essay-content")}" data-supporting="true">BEGIN THE READING <span>↓</span></a>
   </section>
   <div class="reading-key" data-supporting="true">
-    <span><i class="key-dot key-gold"></i>canonical essay text</span>
-    <span><i class="key-dot key-rose"></i>skeptical pressure</span>
-    <span><i class="key-dot key-line"></i>supporting visual</span>
+    <span><i class="key-dot key-gold"></i>essay text</span>
+    <span><i class="key-dot key-rose"></i>questions raised</span>
+    <span><i class="key-dot key-line"></i>visual guide</span>
   </div>
   <div class="essay-body">{"".join(body)}</div>
 </article>
 <footer data-supporting="true">
   <div class="finis">END OF VOLUME</div>
-  <p>Every canonical Markdown block is rendered directly, addressed structurally, and checked after generation.</p>
+  <p>A long-form reading in the Faith essay library.</p>
   <p><a href="{("../" if essay.essay_id else "")}index.html">Return to the essay library</a></p>
 </footer>
 </main>
@@ -384,7 +432,7 @@ def main() -> int:
         route_dir.mkdir(exist_ok=True)
         output = route_dir / "index.html"
         output.write_text(page, encoding="utf-8")
-        results[essay.essay_id] = verify_rendered_html(essay, page)
+        results[essay.essay_id] = verify_rendered_html(essay, page, reader_excluded_ids(essay))
         print(f"{essay.essay_id}: {results[essay.essay_id]['final']} ({essay.sha256})")
 
     (ROOT / "index.html").write_text(render_library(essays), encoding="utf-8")

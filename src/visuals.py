@@ -15,11 +15,23 @@ def _shell(spec: dict, body: str, essay_id: str) -> str:
 def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
     kind = spec.get("kind", "map")
     if kind == "pull":
-        return f'''<aside class="support-pull" data-supporting="true" id="{html.escape(spec["id"])}"><blockquote>“{html.escape(spec["quote"])}”</blockquote><span>{html.escape(spec.get("label", "A LINE TO CARRY"))}</span></aside>'''
+        tone = html.escape(spec.get("tone", "reflection"))
+        return f'''<aside class="support-pull support-pull-{tone}" data-supporting="true" id="{html.escape(spec["id"])}"><blockquote>“{html.escape(spec["quote"])}”</blockquote><span>{html.escape(spec.get("label", "A LINE TO CARRY"))}</span></aside>'''
     if kind == "image":
         asset = html.escape(spec["asset"])
         body = f'<div class="image-frame"><img src="{asset_prefix}assets/{asset}" alt="{html.escape(spec.get("alt", spec["title"]))}" loading="lazy"></div>'
         return _shell(spec, body, essay_id)
+    illustrations = {
+        "claim-doors": '<div class="claim-doors"><span>WORDS<b>what is said</b></span><i>→</i><span>EVENT<b>what happened</b></span><i>→</i><span>MEANING<b>what follows</b></span></div>',
+        "method-window": '<div class="method-window"><span>TRACES<b>documents, memories, absences</b></span><span>INFERENCE<b>the explanation that bears the weight</b></span><span>WORLDVIEW<b>the possibilities allowed to be live</b></span></div>',
+        "worlds-grid": '<div class="worlds-grid"><span>THE GRAVE<b>death stays death</b></span><span>THE SOUL<b>survival without return</b></span><span>THE RAISED BODY<b>the claim being tested</b></span></div>',
+        "source-fan": '<div class="source-fan"><b>EVENT</b><span>PROCLAMATION</span><span>TRADITION</span><span>DOCUMENTS</span><small>Each layer must be weighed for both nearness and dependence.</small></div>',
+        "appearance-ladder": '<div class="appearance-ladder"><span>EXPERIENCE</span><i>↓</i><span>INTERPRETATION</span><i>↓</i><span>CAUSE</span><small>The levels belong together, but they are not the same question.</small></div>',
+        "gospel-windows": '<div class="gospel-windows"><span>MARK<b>the first surviving narrative</b></span><span>MATTHEW<b>one stream, elaborated</b></span><span>LUKE<b>a second literary world</b></span><span>JOHN<b>distinctive tradition, carefully weighed</b></span></div>',
+        "prior-scale": '<div class="prior-scale"><span>PRIOR<b>what is live before this case</b></span><i>+</i><span>EVIDENCE<b>what this case makes pressing</b></span><strong>JUDGMENT</strong></div>',
+    }
+    if kind in illustrations:
+        return _shell(spec, illustrations[kind], essay_id)
     if kind == "timeline":
         body = '<div class="visual-timeline"><span>CRUCIFIXION<br><b>~30</b></span><span>EARLIEST<br>PROCLAMATION</span><span>PAULINE LETTERS<br><b>48–late 50s</b></span><span>MARK<br><b>65–75</b></span><span>MATTHEW / LUKE<br><b>80–95</b></span><span>JOHN<br><b>90s</b></span></div>'
         return _shell(spec, body, essay_id)
