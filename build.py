@@ -227,6 +227,7 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title_text)} — Faith Essay Library</title>
 <meta name="description" content="{html.escape(deck_text)}">
+<link rel="icon" href="{asset_prefix}assets/favicon.svg">
 <link rel="stylesheet" href="{asset_prefix}assets/site.css">
 </head>
 <body>
@@ -307,6 +308,7 @@ def render_library(essays: list[Essay]) -> str:
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Faith — An Essay Library</title>
 <meta name="description" content="A contemplative library of complete Catholic philosophical and theological essays.">
+<link rel="icon" href="assets/favicon.svg">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="library-page">

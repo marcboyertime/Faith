@@ -96,11 +96,6 @@
     if (term) { event.preventDefault(); activeTerm === term && !card.hidden ? closeCard() : openCard(term); return; }
     if (!event.target.closest(".term-card")) closeCard();
   });
-  $("#essay-content")?.addEventListener("focusin", (event) => {
-    const term = event.target.closest(".term");
-    if (term) openCard(term);
-  });
-
   $$('[data-switcher]').forEach((switcher) => {
     const buttons = $$('[data-value]', switcher);
     const panels = $$('[data-panel]', switcher);
