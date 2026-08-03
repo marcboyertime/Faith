@@ -395,6 +395,10 @@ def render_library(essays: list[Essay]) -> str:
     cards = []
     for essay in essays:
         title, deck = title_and_deck(essay)
+        manifest = read_json(ROOT / "content" / essay.essay_id / "manifest.json")
+        cover = manifest.get("hero", {})
+        cover_asset = cover.get("asset", "")
+        cover_alt = cover.get("alt", f"{title.visible if title else essay.essay_id.title()} cover artwork")
         chapter_count = sum(1 for b in essay.blocks if chapter_heading(b, essay.essay_id))
         subjects = {
             "goodness": "Metaphysics, ethics & natural theology",
@@ -407,6 +411,7 @@ def render_library(essays: list[Essay]) -> str:
         route = f"{essay.essay_id}/index.html"
         cards.append(
             f'''<a class="library-card {essay.essay_id}" href="{route}">
+              <img class="library-card-art" src="assets/{html.escape(cover_asset)}" alt="{html.escape(cover_alt)}" loading="lazy">
               <span class="card-number">Volume {volume_number:02d}</span>
               <h2>{html.escape(title.visible if title else essay.essay_id.title())}</h2>
               <p>{html.escape(deck.visible if deck else "")}</p>
