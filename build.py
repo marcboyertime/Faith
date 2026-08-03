@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -14,6 +15,19 @@ from src.visuals import render_visual
 
 ROOT = Path(__file__).resolve().parent
 ESSAYS = ("goodness", "resurrection", "the-world-is-not-enough", "not-one-sparrow")
+
+
+def reader_label(value: str) -> str:
+    """Turn accidental all-caps source labels into calm editorial copy."""
+    if not value or value != value.upper() or not any(char.isalpha() for char in value):
+        return value
+    normalized = value.title()
+    return re.sub(
+        r"\b(I|V|X|L|C|D|M){1,4}\b",
+        lambda match: match.group(0).upper(),
+        normalized,
+        flags=re.IGNORECASE,
+    )
 
 
 def read_json(path: Path) -> dict:
@@ -178,7 +192,7 @@ def visual_map(manifest: dict) -> dict[str, list[dict]]:
 
 def volume_tabs(current: str | None, asset_prefix: str) -> str:
     links = []
-    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION"), ("the-world-is-not-enough", "WORLD IS NOT ENOUGH"), ("not-one-sparrow", "NOT ONE SPARROW")):
+    for essay_id, label in (("goodness", "Goodness"), ("resurrection", "Resurrection"), ("the-world-is-not-enough", "World Is Not Enough"), ("not-one-sparrow", "Not One Sparrow")):
         active = " is-active" if essay_id == current else ""
         current_attr = ' aria-current="page"' if essay_id == current else ""
         links.append(
@@ -323,13 +337,13 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <header class="top on has-volume-tabs" id="topbar">
-  <a class="brand" href="{("../" if essay.essay_id else "")}index.html">FAITH / ESSAYS</a>
+  <a class="brand" href="{("../" if essay.essay_id else "")}index.html">Faith / Essays</a>
   <nav class="volume-tabs" aria-label="Essay volumes">{tabs}</nav>
   <span class="chap-label" id="chap-label" aria-live="polite"></span>
   <div class="tools">
-    <a class="tool-link" href="{("../" if essay.essay_id else "")}index.html">LIBRARY</a>
-    <button class="tool-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-overlay">CHAPTERS</button>
-    <button class="tool-btn" id="theme-btn" type="button">LIGHT / DARK</button>
+    <a class="tool-link" href="{("../" if essay.essay_id else "")}index.html">Library</a>
+    <button class="tool-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-overlay">Chapters</button>
+    <button class="tool-btn" id="theme-btn" type="button">Light / Dark</button>
   </div>
 </header>
 <nav class="rail" aria-label="Chapter navigation">{chapter_links}</nav>
@@ -340,12 +354,12 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
     <div class="hero-veil" aria-hidden="true"></div>
     <canvas id="dust" aria-hidden="true"></canvas>
     <div class="hero-inner">
-      <div class="kicker" data-supporting="true">{html.escape(manifest.get("label", "AN INTERACTIVE READING"))}</div>
+      <div class="kicker" data-supporting="true">{html.escape(reader_label(manifest.get("label", "An interactive reading")))}</div>
       {hero_title}
       <div class="hero-dek">{hero_deck}</div>
-      <div class="meta" data-supporting="true">{chapter_count} CHAPTERS &nbsp;·&nbsp; {reader_word_count:,} WORDS &nbsp;·&nbsp; {minutes} MIN READ</div>
+      <div class="meta" data-supporting="true">{chapter_count} chapters &nbsp;·&nbsp; {reader_word_count:,} words &nbsp;·&nbsp; {minutes} min read</div>
     </div>
-    <a class="begin" href="#{html.escape(chapters[0][0] if chapters else "essay-content")}" data-supporting="true">BEGIN THE READING <span>↓</span></a>
+    <a class="begin" href="#{html.escape(chapters[0][0] if chapters else "essay-content")}" data-supporting="true">Begin the reading <span>↓</span></a>
   </section>
   <div class="reading-key" data-supporting="true">
     <span><i class="key-dot key-gold"></i>essay text</span>
@@ -355,7 +369,7 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
   <div class="essay-body">{"".join(body)}</div>
 </article>
 <footer data-supporting="true">
-  <div class="finis">END OF VOLUME</div>
+  <div class="finis">End of volume</div>
   <p>A long-form reading in the Faith essay library.</p>
   <p><a href="{("../" if essay.essay_id else "")}index.html">Return to the essay library</a></p>
 </footer>
@@ -393,11 +407,11 @@ def render_library(essays: list[Essay]) -> str:
         route = f"{essay.essay_id}/index.html"
         cards.append(
             f'''<a class="library-card {essay.essay_id}" href="{route}">
-              <span class="card-number">VOLUME {volume_number:02d}</span>
+              <span class="card-number">Volume {volume_number:02d}</span>
               <h2>{html.escape(title.visible if title else essay.essay_id.title())}</h2>
               <p>{html.escape(deck.visible if deck else "")}</p>
               <div class="card-meta"><span>{html.escape(subject)}</span><span>{essay.word_count:,} words · {chapter_count} chapters</span></div>
-              <span class="read-link">ENTER THE READING <b>↗</b></span>
+              <span class="read-link">Enter the reading <b>↗</b></span>
             </a>'''
         )
     return f'''<!doctype html>
@@ -410,15 +424,15 @@ def render_library(essays: list[Essay]) -> str:
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="library-page">
-<header class="library-header"><a class="brand" href="index.html">FAITH / ESSAYS</a><nav class="volume-tabs" aria-label="Essay volumes">{volume_tabs(None, "")}</nav><button class="tool-btn" id="theme-btn" type="button">LIGHT / DARK</button></header>
+<header class="library-header"><a class="brand" href="index.html">Faith / Essays</a><nav class="volume-tabs" aria-label="Essay volumes">{volume_tabs(None, "")}</nav><button class="tool-btn" id="theme-btn" type="button">Light / Dark</button></header>
 <main class="library-main">
-  <p class="library-kicker">A SMALL LIBRARY OF BIG QUESTIONS</p>
+  <p class="library-kicker">A small library of big questions</p>
   <h1>Arguments that can<br><em>afford the light.</em></h1>
   <p class="library-intro">Full-length Catholic philosophical and theological essays, read slowly and presented as visual arguments. Each volume keeps its complete source text in view while giving the reader maps, definitions, objections, and room to think.</p>
   <section class="library-grid" aria-label="Essay volumes">{"".join(cards)}</section>
-  <div class="library-note"><span>04</span><p>More volumes will join this shelf. The form is meant to expand without flattening the essays into summaries.</p></div>
+  <div class="library-note"><span>The shelf keeps growing</span><p>Four volumes, each kept whole: maps, definitions, objections, and room to think.</p></div>
 </main>
-<footer class="library-footer"><span>FAITH / ESSAY LIBRARY</span><span>READING IS A FORM OF ATTENTION</span></footer>
+<footer class="library-footer"><span>Faith / Essay Library</span><span>Reading is a form of attention</span></footer>
 <script>window.ESSAY_CONFIG = {json.dumps({"essayId": "library", "theme": "library", "glossary": []})};</script>
 <script src="assets/site.js" defer></script>
 </body>

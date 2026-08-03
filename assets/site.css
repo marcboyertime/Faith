@@ -25,6 +25,8 @@ a { color: inherit; }
 .top.on { transform: translateY(0); }
 .top.has-volume-tabs { transform: translateY(0); }
 .brand, .tool-link, .tool-btn, .meta, .kicker, .reading-key, .visual-top, .card-number, .read-link, .library-kicker, .library-footer, .finis { font-family: var(--caps); letter-spacing: .22em; }
+/* Case is editorial, not decorative: labels should not become accidental shouting. */
+.brand, .tool-link, .tool-btn, .meta, .kicker, .reading-key, .visual-top, .card-number, .read-link, .library-kicker, .library-footer, .finis, .volume-tab { text-transform: none; }
 .brand { color: var(--accent-bright); font-size: .66rem; text-decoration: none; white-space: nowrap; }
 .chap-label { max-width: 45vw; overflow: hidden; color: var(--muted); font: italic 1rem var(--display); text-overflow: ellipsis; white-space: nowrap; }
 .tools { display: flex; align-items: center; gap: .55rem; }

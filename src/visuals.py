@@ -1,11 +1,25 @@
 from __future__ import annotations
 
 import html
+import re
+
+
+def reader_label(value: str) -> str:
+    """Keep visual labels readable when source notes use all caps for emphasis."""
+    if not value or value != value.upper() or not any(char.isalpha() for char in value):
+        return value
+    normalized = value.title()
+    return re.sub(
+        r"\b(I|V|X|L|C|D|M){1,4}\b",
+        lambda match: match.group(0).upper(),
+        normalized,
+        flags=re.IGNORECASE,
+    )
 
 
 def _shell(spec: dict, body: str, essay_id: str) -> str:
     return f'''<figure class="support-visual visual-{html.escape(spec["kind"])}" data-supporting="true" id="{html.escape(spec["id"])}" aria-labelledby="{html.escape(spec["id"])}-title">
-  <div class="visual-top"><span>{html.escape(spec["id"])}</span><span>{html.escape(spec.get("label", "ARGUMENT MAP"))}</span></div>
+  <div class="visual-top"><span>{html.escape(spec["id"])}</span><span>{html.escape(reader_label(spec.get("label", "Argument map")))}</span></div>
   <h3 id="{html.escape(spec["id"])}-title">{html.escape(spec["title"])}</h3>
   {body}
   <figcaption>{html.escape(spec.get("caption", ""))}</figcaption>
@@ -16,7 +30,7 @@ def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
     kind = spec.get("kind", "map")
     if kind == "pull":
         tone = html.escape(spec.get("tone", "reflection"))
-        return f'''<aside class="support-pull support-pull-{tone}" data-supporting="true" id="{html.escape(spec["id"])}"><blockquote>“{html.escape(spec["quote"])}”</blockquote><span>{html.escape(spec.get("label", "A LINE TO CARRY"))}</span></aside>'''
+        return f'''<aside class="support-pull support-pull-{tone}" data-supporting="true" id="{html.escape(spec["id"])}"><blockquote>“{html.escape(spec["quote"])}”</blockquote><span>{html.escape(reader_label(spec.get("label", "A line to carry")))}</span></aside>'''
     if kind == "image":
         asset = html.escape(spec["asset"])
         body = f'<div class="image-frame"><img src="{asset_prefix}assets/{asset}" alt="{html.escape(spec.get("alt", spec["title"]))}" loading="lazy"></div>'

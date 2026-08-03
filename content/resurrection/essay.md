@@ -1,4 +1,4 @@
-# THE RESURRECTION: THE WHOLE CASE
+# The Resurrection: The Whole Case
 
 *An essay for the reader who wants the strongest argument that Jesus rose from the dead — and every objection to it at full strength, hidden from no one.*
 

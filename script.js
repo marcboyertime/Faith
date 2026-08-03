@@ -81,7 +81,7 @@
     activeTerm?.classList.remove("open");
     activeTerm = term;
     term.classList.add("open");
-    card.innerHTML = `<div class="tc-tag">${entry.type === "person" ? "WHO'S WHO" : "WORKING TERM"}</div><h2>${entry.name || entry.term}</h2><p>${entry.definition}</p>${entry.link ? `<a href="${entry.link}" target="_blank" rel="noopener">SOURCE ↗</a>` : ""}`;
+    card.innerHTML = `<div class="tc-tag">${entry.type === "person" ? "Who's Who" : "Working term"}</div><h2>${entry.name || entry.term}</h2><p>${entry.definition}</p>${entry.link ? `<a href="${entry.link}" target="_blank" rel="noopener">Source ↗</a>` : ""}`;
     card.hidden = false;
     if (window.innerWidth > 720) {
       const rect = term.getBoundingClientRect();
