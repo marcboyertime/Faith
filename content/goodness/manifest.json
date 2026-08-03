@@ -1,0 +1,38 @@
+{
+  "expected_sha256": "fc6a5f905aa9bc591a49799c6b7e4fda3671a504655e8de5e7355183acfb2e60",
+  "theme": "goodness",
+  "label": "VOLUME I · AN INTERACTIVE READING",
+  "hero": {"asset": "goodness/hero.png", "alt": "A radiant light emerging from deep baroque darkness"},
+  "glossary": [
+    {"key":"actuality","term":"actuality","pattern":"actuality","name":"Actuality","definition":"A thing being fully at work as the kind of thing it is, rather than existing only as an unrealized capacity."},
+    {"key":"convertibility","term":"convertibility","pattern":"convertibility","name":"Convertibility","definition":"The claim that being and goodness name one reality under two descriptions: what is, and what attracts or fulfills."},
+    {"key":"euthyphro","term":"Euthyphro","pattern":"Euthyphro","name":"The Euthyphro dilemma","definition":"The question whether something is good because God commands it, or God commands it because it is independently good."},
+    {"key":"privation","term":"privation","pattern":"privation","name":"Privation","definition":"A lack of a good that a thing ought to possess, rather than a positive substance called evil."},
+    {"key":"modal-collapse","term":"modal collapse","pattern":"modal collapse","name":"Modal collapse","definition":"The worry that if God's nature necessitates every divine act, no genuinely contingent world remains possible."},
+    {"key":"aquinas","term":"Aquinas","pattern":"Aquinas","type":"person","name":"Thomas Aquinas","definition":"The thirteenth-century philosopher and theologian whose account of being, actuality, goodness, and participation anchors this volume."},
+    {"key":"augustine","term":"Augustine","pattern":"Augustine","type":"person","name":"Augustine","definition":"The North African thinker whose Confessions uses desire, judgment, and restless longing as a path toward God."},
+    {"key":"hume","term":"Hume","pattern":"Hume","type":"person","name":"David Hume","definition":"The Scottish empiricist whose challenges to causation, reason, and theism appear throughout the skeptical pressure-test."},
+    {"key":"plantinga","term":"Plantinga","pattern":"Plantinga","type":"person","name":"Alvin Plantinga","definition":"An analytic philosopher of religion whose free-will defense and arguments about naturalism inform the later chapters."}
+  ],
+  "visuals": [
+    {"id":"GOOD-01","after":"h2-i-securing-the-words-so-none-of-them-can-be-stolen","kind":"image","asset":"goodness/acorn.png","title":"Potentiality becoming actuality","label":"METAPHYSICS","caption":"The oak is in the acorn as a real possibility, not yet as a fact.","alt":"A luminous acorn rests on dark soil while the faint shadow of a full oak rises behind it."},
+    {"id":"GOOD-02","after":"h2-ii-the-asymmetry-of-good-and-evil-a-wall-that-survives-every-retreat","kind":"hierarchy","title":"The ontological scale","label":"DIAGRAM","caption":"A visual reminder that evil is not a rival substance standing opposite being."},
+    {"id":"GOOD-02-IMG","after":"h2-ii-the-asymmetry-of-good-and-evil-a-wall-that-survives-every-retreat","kind":"image","asset":"goodness/privation-sphere.png","title":"The wound in the good","label":"PRIVATION","caption":"Evil appears here not as a competing substance, but as a luminous order interrupted by absence.","alt":"A glowing ivory sphere stands on a stone pedestal in a dark room, its clean crescent-shaped absence surrounded by floating damaged leaves."},
+    {"id":"GOOD-03","after":"h2-iii-the-terminus-and-the-objection-that-boomerangs","kind":"image","asset":"goodness/mirrors.png","title":"The corridor of mirrors","label":"COSMOLOGY","caption":"Borrowed light needs a lamp, however long the corridor.","alt":"A corridor of mirrors passes reflected light from one surface to the next while a hidden lamp glows beyond the frame."},
+    {"id":"GOOD-04","after":"h2-iv-the-bridge-everyone-attacks-from-metaphysically-perfect-to-morally-good","kind":"essence","title":"Essence and existence","label":"ONTOLOGY","caption":"In finite things, what a thing is and that it is are not identical."},
+    {"id":"GOOD-04-IMG","after":"h2-iv-the-bridge-everyone-attacks-from-metaphysically-perfect-to-morally-good","kind":"image","asset":"goodness/essence-existence-bridge.png","title":"The bridge between what and that","label":"ESSENCE / EXISTENCE","caption":"The bridge joins a thing's intelligible form to the fact that it is, without making the two identical.","alt":"A narrow stone bridge crosses a dark chasm from a small glowing geometric object toward a distant amber light on the horizon."},
+    {"id":"GOOD-05","after":"h2-v-euthyphro-every-horn-including-the-third-one","kind":"image","asset":"goodness/staircase.png","title":"The terminus","label":"THEOLOGY","caption":"Not the biggest item in the inventory, but the reason there is an inventory at all.","alt":"A stone staircase rises through a dark interior toward a small opening filled with warm light."},
+    {"id":"GOOD-06","after":"h2-vi-objectivity-what-it-is-whether-god-s-nature-can-supply-it-and-whether-anyone-else-can","kind":"train","title":"The essentially ordered series","label":"ARGUMENT MAP","caption":"Ten thousand cars that cannot move themselves are exactly as motionless as one."},
+    {"id":"GOOD-06B","after":"h2-vi-objectivity-what-it-is-whether-god-s-nature-can-supply-it-and-whether-anyone-else-can","kind":"prism","title":"The names of the source","label":"ANALOGY","caption":"Many true names, none synonymous: creatures are the spectrum, God is the light."},
+    {"id":"GOOD-07","after":"h2-viii-evil-the-objection-with-real-blood-in-it","kind":"image","asset":"goodness/fawn.png","title":"Rowe's fawn","label":"SKEPTICAL PRESSURE","caption":"The objection with real blood in it. No one has the receipt.","alt":"A small fawn rests in a shadowed forest clearing beneath a distant, indifferent sky."},
+    {"id":"GOOD-08","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"image","asset":"goodness/cable.png","title":"Seven lines, one cable","label":"SYNTHESIS","caption":"Partial confirmations multiply when the case is cumulative rather than solitary.","alt":"Many separate golden threads twist together into a single cable that disappears into a field of light."},
+    {"id":"GOOD-09","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"image","asset":"goodness/crucifix.png","title":"An answer in person","label":"THEOLOGY","caption":"Solidarity, where explanation was demanded.","alt":"A weathered crucifix stands in deep shadow while warm light gathers around the figure."},
+    {"id":"GOOD-10","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"goodness-timeline","title":"The cast of the argument","label":"2,400 YEARS","caption":"A compressed history of the questions this essay brings into one case."},
+    {"id":"GOOD-11","after":"h2-iii-the-terminus-and-the-objection-that-boomerangs","kind":"goodness-maps","title":"Two maps of the territory","label":"METHOD","caption":"You cannot step outside all maps; you can see which one keeps working."}
+  ],
+  "pulls": [
+    {"id":"PULL-GOOD-01","after":"h2-i-securing-the-words-so-none-of-them-can-be-stolen","quote":"The denial of the good is always performed in the currency of the good.","label":"THE OPENING PRESSURE"},
+    {"id":"PULL-GOOD-02","after":"h2-iii-the-terminus-and-the-objection-that-boomerangs","quote":"Borrowed light needs a lamp, however long the corridor.","label":"THE COSMOLOGICAL LINE"},
+    {"id":"PULL-GOOD-03","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","quote":"The argument can walk you the entire distance to that door.","label":"THE LAST STEP"}
+  ]
+}
