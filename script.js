@@ -1,4 +1,5 @@
 (() => {
+  document.body.classList.add("js-ready");
   const config = window.ESSAY_CONFIG || { essayId: "library", theme: "library", glossary: [] };
   const root = document.documentElement;
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
