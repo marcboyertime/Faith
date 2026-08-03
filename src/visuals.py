@@ -62,6 +62,21 @@ def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
     if kind == "cumulative":
         body = '<div class="convergence"><span>DEATH</span><span>EARLY PROCLAMATION</span><span>APPEARANCE CLAIMS</span><span>MISSING BODY</span><span>JEWISH MUTATION</span><b>ONE CUMULATIVE CASE</b></div>'
         return _shell(spec, body, essay_id)
+    if kind == "enough-layers":
+        body = '<div class="enough-layers"><article><b>ENOUGH FOR THIS NEED</b><span>food · sleep · company</span></article><article><b>ENOUGH FOR A GOOD LIFE</b><span>love · work · courage · gratitude</span></article><article><b>ENOUGH IN THE LAST SENSE</b><span>unlosable · undecaying · final</span></article></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "finite-weight":
+        body = '<div class="finite-weight"><span class="weight-cottage">A GOOD THING<b>beautiful, finite, received</b></span><i>+</i><span class="weight-cathedral">AN IMPOSSIBLE JOB<b>save me · justify me · remain forever</b></span><strong>THE BREAKING IS NOT PROOF THE GOOD WAS FALSE</strong></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "rival-accounts":
+        body = '<div class="rival-accounts"><span>ORIGIN<b>why the desire arose</b></span><i>≠</i><span>OBJECT<b>whether what is desired is real</b></span><i>≠</i><span>TRUTH<b>whether the belief corresponds</b></span></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "desire-arc":
+        body = '<div class="desire-arc"><span>FINITE GOOD</span><i>→</i><span>DEEPER LONGING</span><i>→</i><span>RESTLESS QUESTION</span><i>→</i><strong>CLUE, NOT PROOF</strong></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "gift-possession":
+        body = '<div class="gift-possession"><article><b>POSSESSION</b><span>held in place by my power</span><small>loss becomes a verdict</small></article><article><b>GIFT</b><span>goodness I did not cause</span><small>loss remains grief, not proof that goodness never was</small></article></div>'
+        return _shell(spec, body, essay_id)
     if kind == "maps":
         body = '<div class="map-pair"><div><b>ORDINARY MAP</b><span>death → grief → memory → movement</span></div><div><b>CHRISTIAN MAP</b><span>death → divine action → transformed life → witness</span></div></div>'
         return _shell(spec, body, essay_id)

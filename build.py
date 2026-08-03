@@ -13,7 +13,7 @@ from src.visuals import render_visual
 
 
 ROOT = Path(__file__).resolve().parent
-ESSAYS = ("goodness", "resurrection")
+ESSAYS = ("goodness", "resurrection", "the-world-is-not-enough")
 
 
 def read_json(path: Path) -> dict:
@@ -45,6 +45,21 @@ def chapter_heading(block, essay_id: str) -> bool:
     )
 
 
+def chapter_rail_label(label: str) -> str:
+    """Keep the fixed chapter rail concise without changing the chapter heading."""
+    rail_aliases = {
+        "IV. The Weight We Put on Finite Things": "IV. The Weight of Finite Things",
+        "VI. What the Objection Explains, and What It Leaves Standing": "VI. What the Objection Leaves Standing",
+        "VIII. What It Would Even Mean to Rest in God": "VIII. What It Means to Rest in God",
+    }
+    if label in rail_aliases:
+        return rail_aliases[label]
+    for divider in (" — ", ":", ","):
+        if divider in label:
+            label = label.split(divider, 1)[0]
+    return label[:34].rstrip()
+
+
 def logical_heading_level(block, essay_id: str, seen_chapter: bool) -> int:
     if block.kind != "heading":
         return 0
@@ -56,8 +71,13 @@ def logical_heading_level(block, essay_id: str, seen_chapter: bool) -> int:
 
 
 def title_and_deck(essay: Essay) -> tuple:
-    title = next((b for b in essay.blocks if b.kind == "heading" and b.level == 1), None)
-    deck = next((b for b in essay.blocks if b.kind == "paragraph"), None)
+    title_index = next((index for index, block in enumerate(essay.blocks) if block.kind == "heading" and block.level == 1), None)
+    title = essay.blocks[title_index] if title_index is not None else None
+    deck = None
+    if title_index is not None and title_index + 1 < len(essay.blocks):
+        candidate = essay.blocks[title_index + 1]
+        if candidate.kind == "paragraph":
+            deck = candidate
     return title, deck
 
 
@@ -158,7 +178,7 @@ def visual_map(manifest: dict) -> dict[str, list[dict]]:
 
 def volume_tabs(current: str | None, asset_prefix: str) -> str:
     links = []
-    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION")):
+    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION"), ("the-world-is-not-enough", "WORLD IS NOT ENOUGH")):
         active = " is-active" if essay_id == current else ""
         current_attr = ' aria-current="page"' if essay_id == current else ""
         links.append(
@@ -169,6 +189,16 @@ def volume_tabs(current: str | None, asset_prefix: str) -> str:
 
 def reader_excluded_ids(essay: Essay) -> set[str]:
     """Keep source-management material out of the public reading edition."""
+    if essay.essay_id == "the-world-is-not-enough":
+        excluded: set[str] = set()
+        in_source_package = False
+        source_headings = {"Sources and Notes", "Website Handoff"}
+        for block in essay.blocks:
+            if block.kind == "heading" and block.level == 1 and block.visible in source_headings:
+                in_source_package = True
+            if in_source_package:
+                excluded.add(block.id)
+        return excluded
     if essay.essay_id != "resurrection":
         return set()
     excluded: set[str] = set()
@@ -226,7 +256,7 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
         if chapter_heading(block, essay.essay_id):
             chapters.append((block.id, block.visible))
     chapter_links = "".join(
-        f'<a href="#{html.escape(cid)}" data-chapter-link>{html.escape(label.split(" — ")[0][:44])}</a>'
+        f'<a href="#{html.escape(cid)}" data-chapter-link>{html.escape(chapter_rail_label(label))}</a>'
         for cid, label in chapters
     )
     config = {
@@ -352,11 +382,17 @@ def render_library(essays: list[Essay]) -> str:
     for essay in essays:
         title, deck = title_and_deck(essay)
         chapter_count = sum(1 for b in essay.blocks if chapter_heading(b, essay.essay_id))
-        subject = "Metaphysics, ethics & natural theology" if essay.essay_id == "goodness" else "History, philosophy & Catholic theology"
+        subjects = {
+            "goodness": "Metaphysics, ethics & natural theology",
+            "resurrection": "History, philosophy & Catholic theology",
+            "the-world-is-not-enough": "Finitude, desire & beatitude",
+        }
+        subject = subjects.get(essay.essay_id, "Philosophy & theology")
+        volume_number = {"goodness": 1, "resurrection": 2, "the-world-is-not-enough": 3}.get(essay.essay_id, 0)
         route = f"{essay.essay_id}/index.html"
         cards.append(
             f'''<a class="library-card {essay.essay_id}" href="{route}">
-              <span class="card-number">VOLUME {1 if essay.essay_id == "goodness" else 2:02d}</span>
+              <span class="card-number">VOLUME {volume_number:02d}</span>
               <h2>{html.escape(title.visible if title else essay.essay_id.title())}</h2>
               <p>{html.escape(deck.visible if deck else "")}</p>
               <div class="card-meta"><span>{html.escape(subject)}</span><span>{essay.word_count:,} words · {chapter_count} chapters</span></div>
@@ -379,7 +415,7 @@ def render_library(essays: list[Essay]) -> str:
   <h1>Arguments that can<br><em>afford the light.</em></h1>
   <p class="library-intro">Full-length Catholic philosophical and theological essays, read slowly and presented as visual arguments. Each volume keeps its complete source text in view while giving the reader maps, definitions, objections, and room to think.</p>
   <section class="library-grid" aria-label="Essay volumes">{"".join(cards)}</section>
-  <div class="library-note"><span>02</span><p>More volumes will join this shelf. The form is meant to expand without flattening the essays into summaries.</p></div>
+  <div class="library-note"><span>03</span><p>More volumes will join this shelf. The form is meant to expand without flattening the essays into summaries.</p></div>
 </main>
 <footer class="library-footer"><span>FAITH / ESSAY LIBRARY</span><span>READING IS A FORM OF ATTENTION</span></footer>
 <script>window.ESSAY_CONFIG = {json.dumps({"essayId": "library", "theme": "library", "glossary": []})};</script>
@@ -437,7 +473,7 @@ def main() -> int:
 
     (ROOT / "index.html").write_text(render_library(essays), encoding="utf-8")
     write_report(essays, results)
-    print("wrote index.html, goodness/index.html, resurrection/index.html")
+    print("wrote index.html, goodness/index.html, resurrection/index.html, the-world-is-not-enough/index.html")
     print("wrote reports/text-integrity-report.md")
     return 0
 
