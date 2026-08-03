@@ -152,6 +152,17 @@ def visual_map(manifest: dict) -> dict[str, list[dict]]:
     return result
 
 
+def volume_tabs(current: str | None, asset_prefix: str) -> str:
+    links = []
+    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION")):
+        active = " is-active" if essay_id == current else ""
+        current_attr = ' aria-current="page"' if essay_id == current else ""
+        links.append(
+            f'<a class="volume-tab{active}" href="{asset_prefix}{essay_id}/index.html"{current_attr}>{label}</a>'
+        )
+    return "".join(links)
+
+
 def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], asset_prefix: str) -> str:
     import html
 
@@ -216,10 +227,11 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
     for other in other_essays:
         other_title, other_deck = title_and_deck(other)
         cards += (
-            f'<a class="volume-link" href="../{other.essay_id}/"><span>{html.escape(other.essay_id.upper())}</span>'
+            f'<a class="volume-link" href="../{other.essay_id}/index.html"><span>{html.escape(other.essay_id.upper())}</span>'
             f'<strong>{html.escape(other_title.visible if other_title else other.essay_id.title())}</strong>'
             f'<em>{html.escape(other_deck.visible if other_deck else "")}</em></a>'
         )
+    tabs = volume_tabs(essay.essay_id, asset_prefix)
     return f'''<!doctype html>
 <html lang="en" data-theme="dark" data-essay="{html.escape(theme)}">
 <head>
@@ -232,8 +244,9 @@ def render_essay_page(essay: Essay, manifest: dict, other_essays: list[Essay], a
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
-<header class="top" id="topbar">
+<header class="top on has-volume-tabs" id="topbar">
   <a class="brand" href="{("../" if essay.essay_id else "")}index.html">FAITH / ESSAYS</a>
+  <nav class="volume-tabs" aria-label="Essay volumes">{tabs}</nav>
   <span class="chap-label" id="chap-label" aria-live="polite"></span>
   <div class="tools">
     <a class="tool-link" href="{("../" if essay.essay_id else "")}index.html">LIBRARY</a>
@@ -292,7 +305,7 @@ def render_library(essays: list[Essay]) -> str:
         title, deck = title_and_deck(essay)
         chapter_count = sum(1 for b in essay.blocks if chapter_heading(b, essay.essay_id))
         subject = "Metaphysics, ethics & natural theology" if essay.essay_id == "goodness" else "History, philosophy & Catholic theology"
-        route = f"{essay.essay_id}/"
+        route = f"{essay.essay_id}/index.html"
         cards.append(
             f'''<a class="library-card {essay.essay_id}" href="{route}">
               <span class="card-number">VOLUME {1 if essay.essay_id == "goodness" else 2:02d}</span>
@@ -312,7 +325,7 @@ def render_library(essays: list[Essay]) -> str:
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="library-page">
-<header class="library-header"><a class="brand" href="index.html">FAITH / ESSAYS</a><button class="tool-btn" id="theme-btn" type="button">LIGHT / DARK</button></header>
+<header class="library-header"><a class="brand" href="index.html">FAITH / ESSAYS</a><nav class="volume-tabs" aria-label="Essay volumes">{volume_tabs(None, "")}</nav><button class="tool-btn" id="theme-btn" type="button">LIGHT / DARK</button></header>
 <main class="library-main">
   <p class="library-kicker">A SMALL LIBRARY OF BIG QUESTIONS</p>
   <h1>Arguments that can<br><em>afford the light.</em></h1>

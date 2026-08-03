@@ -31,6 +31,16 @@ class SiteChecks(unittest.TestCase):
             for target in re.findall(r'href="#([^"]+)"', source):
                 self.assertIn(target, ids, f"{page}: #{target}")
 
+    def test_volume_tabs_are_real_local_links(self):
+        library = (self.root / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="goodness/index.html"', library)
+        self.assertIn('href="resurrection/index.html"', library)
+        for essay_id in ("goodness", "resurrection"):
+            source = (self.root / essay_id / "index.html").read_text(encoding="utf-8")
+            self.assertIn('href="../goodness/index.html"', source)
+            self.assertIn('href="../resurrection/index.html"', source)
+            self.assertIn('class="volume-tab is-active"', source)
+
 
 if __name__ == "__main__":
     unittest.main()

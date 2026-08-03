@@ -2,7 +2,10 @@
   "expected_sha256": "e5da22a010731a448785fbef36c238902a215e849697df8cce0f8e9fa7ed6f0f",
   "theme": "resurrection",
   "label": "VOLUME II · AN INTERACTIVE READING",
-  "hero": {},
+  "hero": {
+    "asset": "resurrection/tomb-threshold.png",
+    "alt": "A rock-cut tomb entrance and its round stone before the first light of day."
+  },
   "glossary": [
     {"key":"resurrection","term":"resurrection","pattern":"resurrection","name":"Resurrection","definition":"A claim that the same person who died is embodied again in a transformed, deathless mode, not merely remembered, seen in a vision, or resuscitated for another death."},
     {"key":"resuscitation","term":"resuscitation","pattern":"resuscitation","name":"Resuscitation","definition":"A return to ordinary mortal life, like Lazarus in the Gospel narratives, which remains subject to death."},
@@ -38,5 +41,15 @@
     {"id":"VIS-XI-02","after":"h1-xi-the-tournament-of-explanations-let-every-rival-fight-at-full-strength","kind":"hypotheses","title":"The hypothesis tournament","label":"EXPLANATORY COMPETITION","caption":"The composite naturalistic account remains the strongest rival, not a straw man."},
     {"id":"VIS-XII-03","after":"h1-xii-hume-priors-and-the-miracle-barrier-when-is-the-extraordinary-rational","kind":"bayes","title":"The Bayesian river","label":"PRIORS","caption":"The visual shows conditional reasoning without pretending to produce an authoritative percentage."},
     {"id":"VIS-XIII-01","after":"h1-xiii-the-cumulative-case-how-the-strands-actually-combine","kind":"cumulative","title":"Converging lines","label":"CUMULATIVE CASE","caption":"Death, proclamation, appearances, absence, and mutation remain connected without being collapsed."}
+    ,{"id":"RES-IMG-IV-01","after":"h1-iv-the-source-dossier-how-early-how-independent-how-close","kind":"image","asset":"resurrection/source-fragments.png","title":"The material question","label":"SOURCES","caption":"The inquiry begins with what can still be put on the table: fragments, dates, dependencies, and limits.","alt":"Papyrus fragments and a writing tablet in lamplight."}
+    ,{"id":"RES-IMG-VI-01","after":"h1-vi-he-was-raised-the-earliest-recoverable-proclamation","kind":"image","asset":"resurrection/linen-study.png","title":"An absence with texture","label":"EMPTY TOMB","caption":"The visual holds the material claim at the edge of its evidential reach rather than turning it into an answer by itself.","alt":"Pale linen resting on a limestone bench in a dark chamber."}
+    ,{"id":"RES-IMG-VII-01","after":"h1-vii-the-appearances-what-did-they-experience","kind":"image","asset":"resurrection/dawn-witnesses.png","title":"Before the conclusion","label":"APPEARANCES","caption":"Witnesses remain persons before they become data points: particular, finite, and historically situated.","alt":"Distant figures walking on a stony ridge before dawn."}
+    ,{"id":"RES-IMG-XIII-01","after":"h1-xiii-the-cumulative-case-how-the-strands-actually-combine","kind":"image","asset":"resurrection/chamber-cutaway.png","title":"The chamber as a question","label":"CUMULATIVE CASE","caption":"The spatial image keeps absence, testimony, and inference visibly distinct as the strands are considered together.","alt":"An oblique cutaway view of a rock-cut burial chamber."}
+  ],
+  "pulls": [
+    {"id":"PULL-OV-01","after":"h2-overture-the-morning-that-should-not-exist","quote":"People who die stay dead.","label":"THE PRESSURE OF THE QUESTION"},
+    {"id":"PULL-IV-01","after":"h1-iv-the-source-dossier-how-early-how-independent-how-close","quote":"Early error is still error.","label":"A NECESSARY CAUTION"},
+    {"id":"PULL-XII-01","after":"h1-xii-hume-priors-and-the-miracle-barrier-when-is-the-extraordinary-rational","quote":"Disbelief can remain rational; dismissal cannot remain cheap.","label":"THE EPISTEMIC TASK"},
+    {"id":"PULL-XIII-01","after":"h1-xiii-the-cumulative-case-how-the-strands-actually-combine","quote":"Catholic faith goes beyond that probability; it does not go against it.","label":"THE LIMIT OF THE CASE"}
   ]
 }
