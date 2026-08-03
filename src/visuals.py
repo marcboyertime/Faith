@@ -77,6 +77,15 @@ def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
     if kind == "gift-possession":
         body = '<div class="gift-possession"><article><b>POSSESSION</b><span>held in place by my power</span><small>loss becomes a verdict</small></article><article><b>GIFT</b><span>goodness I did not cause</span><small>loss remains grief, not proof that goodness never was</small></article></div>'
         return _shell(spec, body, essay_id)
+    if kind == "extinction-timeline":
+        body = '<div class="extinction-timeline"><span>CAMBRIAN<br><b>FIRST LIGHT</b></span><i></i><span>ORDOVICIAN<br><b>WOUND</b></span><i></i><span>PERMIAN<br><b>THE GREAT DYING</b></span><i></i><span>CRETACEOUS<br><b>ASH</b></span><strong>THE LONG DARK</strong></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "unfinished-journey":
+        body = '<div class="unfinished-journey"><span>GOOD</span><i>→</i><span>JOURNEYING</span><i>→</i><strong>GLORY</strong><small><em>in statu viae</em> — not a finished display, but a creation moving toward consummation</small></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "food-chain":
+        body = '<div class="food-chain"><span>STARS</span><i>↓</i><span>SEA</span><i>↓</i><span>FOREST</span><i>↓</i><span>MANGER</span><i>↓</i><strong>CROSS</strong><small>The answer descends into creaturely life rather than explaining it from a safe height.</small></div>'
+        return _shell(spec, body, essay_id)
     if kind == "maps":
         body = '<div class="map-pair"><div><b>ORDINARY MAP</b><span>death → grief → memory → movement</span></div><div><b>CHRISTIAN MAP</b><span>death → divine action → transformed life → witness</span></div></div>'
         return _shell(spec, body, essay_id)

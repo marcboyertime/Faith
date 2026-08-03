@@ -13,7 +13,7 @@ from src.visuals import render_visual
 
 
 ROOT = Path(__file__).resolve().parent
-ESSAYS = ("goodness", "resurrection", "the-world-is-not-enough")
+ESSAYS = ("goodness", "resurrection", "the-world-is-not-enough", "not-one-sparrow")
 
 
 def read_json(path: Path) -> dict:
@@ -178,7 +178,7 @@ def visual_map(manifest: dict) -> dict[str, list[dict]]:
 
 def volume_tabs(current: str | None, asset_prefix: str) -> str:
     links = []
-    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION"), ("the-world-is-not-enough", "WORLD IS NOT ENOUGH")):
+    for essay_id, label in (("goodness", "GOODNESS"), ("resurrection", "RESURRECTION"), ("the-world-is-not-enough", "WORLD IS NOT ENOUGH"), ("not-one-sparrow", "NOT ONE SPARROW")):
         active = " is-active" if essay_id == current else ""
         current_attr = ' aria-current="page"' if essay_id == current else ""
         links.append(
@@ -189,10 +189,10 @@ def volume_tabs(current: str | None, asset_prefix: str) -> str:
 
 def reader_excluded_ids(essay: Essay) -> set[str]:
     """Keep source-management material out of the public reading edition."""
-    if essay.essay_id == "the-world-is-not-enough":
+    if essay.essay_id in {"the-world-is-not-enough", "not-one-sparrow"}:
         excluded: set[str] = set()
         in_source_package = False
-        source_headings = {"Sources and Notes", "Website Handoff"}
+        source_headings = {"Sources and Notes", "Source Note", "Website Handoff"}
         for block in essay.blocks:
             if block.kind == "heading" and block.level == 1 and block.visible in source_headings:
                 in_source_package = True
@@ -386,9 +386,10 @@ def render_library(essays: list[Essay]) -> str:
             "goodness": "Metaphysics, ethics & natural theology",
             "resurrection": "History, philosophy & Catholic theology",
             "the-world-is-not-enough": "Finitude, desire & beatitude",
+            "not-one-sparrow": "Animal suffering, providence & hope",
         }
         subject = subjects.get(essay.essay_id, "Philosophy & theology")
-        volume_number = {"goodness": 1, "resurrection": 2, "the-world-is-not-enough": 3}.get(essay.essay_id, 0)
+        volume_number = {"goodness": 1, "resurrection": 2, "the-world-is-not-enough": 3, "not-one-sparrow": 4}.get(essay.essay_id, 0)
         route = f"{essay.essay_id}/index.html"
         cards.append(
             f'''<a class="library-card {essay.essay_id}" href="{route}">
@@ -415,7 +416,7 @@ def render_library(essays: list[Essay]) -> str:
   <h1>Arguments that can<br><em>afford the light.</em></h1>
   <p class="library-intro">Full-length Catholic philosophical and theological essays, read slowly and presented as visual arguments. Each volume keeps its complete source text in view while giving the reader maps, definitions, objections, and room to think.</p>
   <section class="library-grid" aria-label="Essay volumes">{"".join(cards)}</section>
-  <div class="library-note"><span>03</span><p>More volumes will join this shelf. The form is meant to expand without flattening the essays into summaries.</p></div>
+  <div class="library-note"><span>04</span><p>More volumes will join this shelf. The form is meant to expand without flattening the essays into summaries.</p></div>
 </main>
 <footer class="library-footer"><span>FAITH / ESSAY LIBRARY</span><span>READING IS A FORM OF ATTENTION</span></footer>
 <script>window.ESSAY_CONFIG = {json.dumps({"essayId": "library", "theme": "library", "glossary": []})};</script>
@@ -473,7 +474,7 @@ def main() -> int:
 
     (ROOT / "index.html").write_text(render_library(essays), encoding="utf-8")
     write_report(essays, results)
-    print("wrote index.html, goodness/index.html, resurrection/index.html, the-world-is-not-enough/index.html")
+    print("wrote index.html, goodness/index.html, resurrection/index.html, the-world-is-not-enough/index.html, not-one-sparrow/index.html")
     print("wrote reports/text-integrity-report.md")
     return 0
 
