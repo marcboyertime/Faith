@@ -1,0 +1,42 @@
+{
+  "expected_sha256": "e5da22a010731a448785fbef36c238902a215e849697df8cce0f8e9fa7ed6f0f",
+  "theme": "resurrection",
+  "label": "VOLUME II · AN INTERACTIVE READING",
+  "hero": {},
+  "glossary": [
+    {"key":"resurrection","term":"resurrection","pattern":"resurrection","name":"Resurrection","definition":"A claim that the same person who died is embodied again in a transformed, deathless mode, not merely remembered, seen in a vision, or resuscitated for another death."},
+    {"key":"resuscitation","term":"resuscitation","pattern":"resuscitation","name":"Resuscitation","definition":"A return to ordinary mortal life, like Lazarus in the Gospel narratives, which remains subject to death."},
+    {"key":"apparition","term":"apparition","pattern":"apparition","name":"Apparition","definition":"An appearance or sensed presence that need not imply a transformed bodily return."},
+    {"key":"christophany","term":"christophany","pattern":"christophany","name":"Christophany","definition":"A technical term for an appearance or manifestation of the risen Christ."},
+    {"key":"historical-bedrock","term":"historical bedrock","pattern":"historical bedrock","name":"Historical bedrock","definition":"A claim treated as especially secure within historical inquiry, without implying that it proves the theological conclusion by itself."},
+    {"key":"multiple-attestation","term":"multiple attestation","pattern":"multiple attestation","name":"Multiple attestation","definition":"A method that asks whether a claim appears in more than one source or tradition, while still checking dependence between sources."},
+    {"key":"source-dependence","term":"source dependence","pattern":"source dependence","name":"Source dependence","definition":"The fact that one document may draw directly or indirectly on another, so document count is not automatically witness count."},
+    {"key":"explanatory-scope","term":"explanatory scope","pattern":"explanatory scope","name":"Explanatory scope","definition":"How much of the relevant evidence an explanation covers."},
+    {"key":"explanatory-power","term":"explanatory power","pattern":"explanatory power","name":"Explanatory power","definition":"How well an explanation makes the evidence expected rather than merely compatible with it."},
+    {"key":"prior-probability","term":"prior probability","pattern":"prior probability","name":"Prior probability","definition":"The starting plausibility assigned to a hypothesis before the particular evidence is considered."},
+    {"key":"likelihood","term":"likelihood","pattern":"likelihood","name":"Likelihood","definition":"How expected a piece of evidence would be if a particular hypothesis were true."},
+    {"key":"methodological-naturalism","term":"methodological naturalism","pattern":"methodological naturalism","name":"Methodological naturalism","definition":"A working rule for historical or scientific inquiry that seeks ordinary causes within the method; it is not automatically a complete metaphysics of reality."},
+    {"key":"miracle","term":"miracle","pattern":"miracle","name":"Miracle","definition":"An event understood as an act of God, not simply as an event with a currently unknown natural mechanism."},
+    {"key":"faith","term":"faith","pattern":"faith","name":"Faith","definition":"A graced act of trust and assent that can build on evidence without being reducible to a historical probability calculation."},
+    {"key":"paul","term":"Paul","pattern":"Paul","type":"person","name":"Paul of Tarsus","definition":"The earliest Christian author represented in the surviving letters, and a former opponent whose own appearance claim has both evidential strength and limits."},
+    {"key":"peter","term":"Peter","pattern":"Peter","type":"person","name":"Peter / Cephas","definition":"The principal early witness named in the tradition and associated with the first proclamation of Jesus's rising."},
+    {"key":"james","term":"James","pattern":"James","type":"person","name":"James","definition":"The brother of Jesus and Jerusalem leader whose appearance tradition is treated as a strong but carefully graded supporting card."},
+    {"key":"mary-magdalene","term":"Mary Magdalene","pattern":"Mary Magdalene","type":"person","name":"Mary Magdalene","definition":"A principal figure in the Gospel tomb traditions; the source traditions and their literary shaping are kept distinct."},
+    {"key":"hume","term":"Hume","pattern":"Hume","type":"person","name":"David Hume","definition":"The philosopher whose argument from the uniformity of nature supplies the strongest version of the miracle barrier."},
+    {"key":"allison","term":"Allison","pattern":"Allison","type":"person","name":"Dale C. Allison Jr.","definition":"A scholar used as an epistemic governor in the essay: willing to affirm that disciples saw Jesus while refusing to overclaim historical certainty."}
+  ],
+  "visuals": [
+    {"id":"VIS-OV-02","after":"h2-overture-the-morning-that-should-not-exist","kind":"maps","title":"Two opening maps","label":"OVERTURE","caption":"Neither route is marked correct before the inquiry begins."},
+    {"id":"VIS-I-02","after":"h1-i-securing-the-words-what-exactly-is-on-trial","kind":"afterlife-map","title":"Name the claim before judging it","label":"CLAIM LAYERS","caption":"Survival, apparition, resuscitation, and transformed resurrection are not interchangeable."},
+    {"id":"VIS-II-03","after":"h1-ii-the-rules-of-the-inquiry-how-can-anyone-reason-about-easter","kind":"claim-map","title":"The claim-layer map","label":"METHOD","caption":"History, inference, philosophy, theology, and doctrine have different jobs."},
+    {"id":"VIS-III-02","after":"h1-iii-the-ancient-map-of-death-what-options-did-the-first-witnesses-have","kind":"afterlife","title":"The ancient map of death","label":"CONTEXT","caption":"The Jewish and pagan alternatives are shown without flattening their differences."},
+    {"id":"VIS-IV-01","after":"h1-iv-the-source-dossier-how-early-how-independent-how-close","kind":"timeline","title":"The source timeline","label":"SOURCES","caption":"Approximate dates remain ranges; the fog is part of the evidence."},
+    {"id":"VIS-IV-02","after":"h1-iv-the-source-dossier-how-early-how-independent-how-close","kind":"dependence","title":"The dependence tree","label":"SOURCE RELATIONSHIPS","caption":"Multiple documents do not automatically mean multiple independent witnesses."},
+    {"id":"VIS-VI-01","after":"h1-vi-he-was-raised-the-earliest-recoverable-proclamation","kind":"creed","title":"Formula as vertebrae","label":"1 CORINTHIANS 15","caption":"Event-claims and meaning-claims remain visibly distinct."},
+    {"id":"VIS-VII-04","after":"h1-vii-the-appearances-what-did-they-experience","kind":"witness","title":"Witness rings","label":"APPEARANCES","caption":"Radius tracks evidence grade, not importance or head count."},
+    {"id":"VIS-X-01","after":"h1-x-four-endings-one-easter-the-contradictions-and-discrepancies","kind":"gospel-table","title":"A comparison lens","label":"GOSPEL COMPARISON","caption":"Differences can be real without being treated as either automatic harmony or automatic collapse."},
+    {"id":"VIS-XI-02","after":"h1-xi-the-tournament-of-explanations-let-every-rival-fight-at-full-strength","kind":"hypotheses","title":"The hypothesis tournament","label":"EXPLANATORY COMPETITION","caption":"The composite naturalistic account remains the strongest rival, not a straw man."},
+    {"id":"VIS-XII-03","after":"h1-xii-hume-priors-and-the-miracle-barrier-when-is-the-extraordinary-rational","kind":"bayes","title":"The Bayesian river","label":"PRIORS","caption":"The visual shows conditional reasoning without pretending to produce an authoritative percentage."},
+    {"id":"VIS-XIII-01","after":"h1-xiii-the-cumulative-case-how-the-strands-actually-combine","kind":"cumulative","title":"Converging lines","label":"CUMULATIVE CASE","caption":"Death, proclamation, appearances, absence, and mutation remain connected without being collapsed."}
+  ]
+}
