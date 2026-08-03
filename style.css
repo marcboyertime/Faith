@@ -71,6 +71,9 @@ main { position: relative; z-index: 1; }
 .visual-top { display: flex; justify-content: space-between; gap: 1rem; color: var(--faint); font-size: .51rem; }
 .support-visual h3 { margin: .7rem 0 1rem; color: var(--bright); font: 600 clamp(1.45rem,3vw,2.05rem)/1.15 var(--display); }
 .support-visual figcaption { margin-top: 1rem; color: var(--muted); font: italic .94rem/1.5 var(--display); text-align: center; }
+.support-pull { margin: 3.3rem -1rem; padding: 1.8rem 1rem 1.5rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+.support-pull blockquote { max-width: 28ch; margin: 0 auto .7rem; color: var(--bright); font: italic clamp(1.45rem,3vw,2.05rem)/1.25 var(--display); }
+.support-pull span { color: var(--faint); font: .52rem var(--caps); letter-spacing: .24em; }
 .image-frame { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
 .image-frame img { display: block; width: 100%; height: auto; }
 .visual-timeline, .claim-layers, .afterlife-map, .dependence-tree, .creed-spine, .bayes-river { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: .8rem 0 1rem; }

@@ -145,7 +145,9 @@ def render_block(block, essay_id: str, glossary: list[dict], seen_terms: set[str
 
 def visual_map(manifest: dict) -> dict[str, list[dict]]:
     result: dict[str, list[dict]] = {}
-    for spec in manifest.get("visuals", []):
+    specs = list(manifest.get("visuals", []))
+    specs.extend({**spec, "kind": "pull"} for spec in manifest.get("pulls", []))
+    for spec in specs:
         result.setdefault(spec["after"], []).append(spec)
     return result
 

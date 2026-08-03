@@ -21,7 +21,16 @@
     {"id":"GOOD-04","after":"h2-iv-the-bridge-everyone-attacks-from-metaphysically-perfect-to-morally-good","kind":"essence","title":"Essence and existence","label":"ONTOLOGY","caption":"In finite things, what a thing is and that it is are not identical."},
     {"id":"GOOD-05","after":"h2-v-euthyphro-every-horn-including-the-third-one","kind":"image","asset":"goodness/staircase.png","title":"The terminus","label":"THEOLOGY","caption":"Not the biggest item in the inventory, but the reason there is an inventory at all."},
     {"id":"GOOD-06","after":"h2-vi-objectivity-what-it-is-whether-god-s-nature-can-supply-it-and-whether-anyone-else-can","kind":"train","title":"The essentially ordered series","label":"ARGUMENT MAP","caption":"Ten thousand cars that cannot move themselves are exactly as motionless as one."},
+    {"id":"GOOD-06B","after":"h2-vi-objectivity-what-it-is-whether-god-s-nature-can-supply-it-and-whether-anyone-else-can","kind":"prism","title":"The names of the source","label":"ANALOGY","caption":"Many true names, none synonymous: creatures are the spectrum, God is the light."},
     {"id":"GOOD-07","after":"h2-viii-evil-the-objection-with-real-blood-in-it","kind":"image","asset":"goodness/fawn.png","title":"Rowe's fawn","label":"SKEPTICAL PRESSURE","caption":"The objection with real blood in it. No one has the receipt."},
-    {"id":"GOOD-08","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"image","asset":"goodness/cable.png","title":"Seven lines, one cable","label":"SYNTHESIS","caption":"Partial confirmations multiply when the case is cumulative rather than solitary."}
+    {"id":"GOOD-08","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"image","asset":"goodness/cable.png","title":"Seven lines, one cable","label":"SYNTHESIS","caption":"Partial confirmations multiply when the case is cumulative rather than solitary."},
+    {"id":"GOOD-09","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"image","asset":"goodness/crucifix.png","title":"An answer in person","label":"THEOLOGY","caption":"Solidarity, where explanation was demanded."},
+    {"id":"GOOD-10","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","kind":"goodness-timeline","title":"The cast of the argument","label":"2,400 YEARS","caption":"A compressed history of the questions this essay brings into one case."},
+    {"id":"GOOD-11","after":"h2-iii-the-terminus-and-the-objection-that-boomerangs","kind":"goodness-maps","title":"Two maps of the territory","label":"METHOD","caption":"You cannot step outside all maps; you can see which one keeps working."}
+  ],
+  "pulls": [
+    {"id":"PULL-GOOD-01","after":"h2-i-securing-the-words-so-none-of-them-can-be-stolen","quote":"The denial of the good is always performed in the currency of the good.","label":"THE OPENING PRESSURE"},
+    {"id":"PULL-GOOD-02","after":"h2-iii-the-terminus-and-the-objection-that-boomerangs","quote":"Borrowed light needs a lamp, however long the corridor.","label":"THE COSMOLOGICAL LINE"},
+    {"id":"PULL-GOOD-03","after":"h2-ix-the-verdict-and-what-it-would-take-to-overturn-it","quote":"The argument can walk you the entire distance to that door.","label":"THE LAST STEP"}
   ]
 }

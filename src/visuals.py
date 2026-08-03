@@ -14,6 +14,8 @@ def _shell(spec: dict, body: str, essay_id: str) -> str:
 
 def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
     kind = spec.get("kind", "map")
+    if kind == "pull":
+        return f'''<aside class="support-pull" data-supporting="true" id="{html.escape(spec["id"])}"><blockquote>“{html.escape(spec["quote"])}”</blockquote><span>{html.escape(spec.get("label", "A LINE TO CARRY"))}</span></aside>'''
     if kind == "image":
         asset = html.escape(spec["asset"])
         body = f'<div class="image-frame"><img src="{asset_prefix}assets/{asset}" alt="{html.escape(spec.get("alt", spec["title"]))}" loading="lazy"></div>'
@@ -65,5 +67,11 @@ def render_visual(spec: dict, essay_id: str, asset_prefix: str) -> str:
         return _shell(spec, body, essay_id)
     if kind == "prism":
         body = '<div class="prism-diagram"><b>ONE SIMPLE ACT</b><i>→</i><span>being</span><span>goodness</span><span>truth</span><span>beauty</span></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "goodness-timeline":
+        body = '<div class="visual-timeline goodness-history"><span>PLATO<br><b>c. 400 BC</b></span><span>ARISTOTLE<br><b>c. 350 BC</b></span><span>AUGUSTINE<br><b>354</b></span><span>AQUINAS<br><b>1225</b></span><span>HUME<br><b>1711</b></span><span>MOORE<br><b>1873</b></span><span>OPPY<br><b>1960</b></span></div>'
+        return _shell(spec, body, essay_id)
+    if kind == "goodness-maps":
+        body = '<div class="map-pair"><div><b>BRUTE FACTS</b><span>existence → no further question</span></div><div><b>THE MAP THAT KEEPS WORKING</b><span>being → actuality → goodness → source</span></div></div>'
         return _shell(spec, body, essay_id)
     return _shell(spec, '<div class="generic-visual"><span>STRUCTURE</span><b>evidence → inference → judgment</b></div>', essay_id)
